@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #cbcbcb;
+}
+
+.todo-list {
+  margin: 100px auto;
+  width: 440px;
+  padding: 5px 20px;
+  border-radius: 7px;
+  background-color: #fff;
+}
+
+.todo-list > h1 {
+  margin-top: 32px;
+  font-size: 22px;
+}
+
+.todo-list > .list-description {
+  font-size: 15px;
+  font-style: italic;
+  font-family: -webkit-pictograph, sans-serif;
+}
