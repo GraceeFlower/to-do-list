@@ -50,7 +50,6 @@ function addStorage() {
       localStorage.setItem(localKey, JSON.stringify(localValue));
       addItem(localKey);
       itemValue.value = "";
-      itemValue.focus();
     }
   }
 }

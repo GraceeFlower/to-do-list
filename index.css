@@ -73,6 +73,7 @@ li > .delete-btn {
   border: none;
   color: #999999;
   background-color: transparent;
+  outline: none;
 }
 
 .delete-btn:hover {
