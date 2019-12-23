@@ -3,6 +3,15 @@ var todoList = document.getElementsByClassName("task-list")[0];
 var checkItem = document.getElementsByName("check-item");
 var sortList = document.getElementsByClassName("sort-list")[0];
 
+function loadItem() {
+  todoList.innerHTML = "";
+  if(localStorage.length) {
+    for(var item = 0; item < localStorage.length; item++) {
+      addItem(item);
+    }
+  } 
+}
+
 function addStorage() {
   if(itemValue.value) {
     var localKey = localStorage.length;
@@ -12,15 +21,6 @@ function addStorage() {
     itemValue.value = "";
     itemValue.focus();
   }
-}
-
-function loadItem() {
-  todoList.innerHTML = "";
-  if(localStorage.length) {
-    for(var item = 0; item < localStorage.length; item++) {
-      addItem(item);
-    }
-  } 
 }
 
 function addItem(key) {
@@ -59,6 +59,16 @@ todoList.addEventListener("click", function (event) {
   }
 })
 
+function reloadItem(state) {
+  todoList.innerHTML = "";
+  for(var item = 0; item < localStorage.length; item++) {
+    var values = JSON.parse(localStorage.getItem(item));
+    if(Boolean(values[1]) == state) {
+      addItem(item);
+    }
+  }
+}
+
 sortList.addEventListener("click", function (event) {
   var target = event.target;
   switch(target.name) {
@@ -74,25 +84,5 @@ sortList.addEventListener("click", function (event) {
       break;
   }
 })
-
-function reloadItem(state) {
-  todoList.innerHTML = "";
-  for(var item = 0; item < localStorage.length; item++) {
-    var values = JSON.parse(localStorage.getItem(item));
-    if(Boolean(values[1]) == state) {
-      addItem(item);
-    }
-  }
-}
-
-// function showDone() {
-//   todoList.innerHTML = "";
-//   for(var item = 0; item < localStorage.length; item++) {
-//     var values = JSON.parse(localStorage.getItem(item));
-//     if(values[1]) {
-//       addItem(item);
-//     }
-//   }
-// }
 
 loadItem();
