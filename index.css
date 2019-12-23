@@ -66,6 +66,7 @@ li:nth-of-type(2n) {
   border: 1px solid #fefefe;
   color: #f0979b;
   font-size: 14px;
+  outline: none;
 }
 
 .sort-btn:hover {

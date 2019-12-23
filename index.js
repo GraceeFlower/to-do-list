@@ -29,5 +29,21 @@ function addItem(value) {
   todoList.appendChild(todoItem);
 }
 
+var checkItem = document.getElementsByName("check-item");
+var checked = [];
+var unChecked = [];
+function judgeCheckState() {
+  checked = [];
+  unChecked = [];
+  return checkItem.forEach((item) => item.checked ? checked.push(item.parentNode) 
+                    : unChecked.push(item.parentNode));
+}
+
+function showActive() {
+  judgeCheckState();
+  todoList.innerHTML = "";
+  unChecked.forEach((item) => todoList.appendChild(item));
+}
+
 loadItem();
 
