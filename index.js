@@ -1,10 +1,9 @@
 var itemValue = document.getElementsByName("item-value")[0];
-var todoList = document.getElementsByClassName("task-list")[0];
-var checkItem = document.getElementsByName("check-item");
-var sortList = document.getElementsByClassName("sort-list")[0];
+var taskList = document.getElementsByClassName("task-list")[0];
+var todoList = document.getElementsByClassName("todo-list")[0];
 
 function loadItem(status) {
-  todoList.innerHTML = "";
+  taskList.innerHTML = "";
   if(localStorage.length) {
     var localArr = [];
     var doneArr = [];
@@ -19,7 +18,7 @@ function loadItem(status) {
           } else {
             todoArr[index] = JSON.parse(localStorage[item])[1];
           }
-        } 
+        }
       }
     }
     switch(status) {
@@ -60,7 +59,7 @@ function addItem(key) {
     <input type="checkbox" name="check-item" ${checkState} /><span>${value[1]}</span>
     <input type ="button" class="delete-btn" name="delete-item" value="✕"/>
   `
-  todoList.appendChild(todoItem);
+  taskList.appendChild(todoItem);
 }
 
 function changeState(list) {
@@ -84,8 +83,10 @@ function deleteItem(target) {
     var value = JSON.parse(localStorage.getItem(key));
     var index = value[0];
     var state = value[2];
+    var randomKey = new Date().getTime();
     var localValue = [index, key, state, false];
-    localStorage.setItem(key, JSON.stringify(localValue));
+    localStorage.removeItem(key);
+    localStorage.setItem(randomKey, JSON.stringify(localValue));
     loadItem();
   }
 }
@@ -99,14 +100,6 @@ todoList.addEventListener("click", function (event) {
     case ("delete-item"):
       deleteItem(target);
       break;
-    default:
-      break;
-  }
-})
-
-sortList.addEventListener("click", function (event) {
-  var target = event.target;
-  switch(target.name) {
     case ("choose-todo"):
       loadItem("todo");
       break;
@@ -115,6 +108,7 @@ sortList.addEventListener("click", function (event) {
       break;
     case ("choose-all"):
       loadItem("all");
+      break;
     default:
       break;
   }
