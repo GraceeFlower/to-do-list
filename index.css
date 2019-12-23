@@ -9,7 +9,7 @@ body {
   width: 440px;
   padding: 5px 20px;
   border-radius: 7px;
-  background-color: #fff;
+  background-color: #fefefe;
 }
 
 .todo-list > h1 {
@@ -18,7 +18,38 @@ body {
 }
 
 .todo-list > .list-description {
+  margin-bottom: 16px;
   font-size: 15px;
   font-style: italic;
   font-family: -webkit-pictograph, sans-serif;
 }
+
+#todo-value {
+  width: 300px;
+  height: 24px;
+}
+
+.add-item {
+  width: 55px;
+  height: 27px;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  color: #fff;
+  background-color: #f0979b;
+}
+
+.todo-list > ol {
+  padding: 0 20px;
+  font-size: 14px;
+}
+
+.todo-list > ol > li {
+  height: 30px;
+  line-height: 30px;
+}
+
+li:nth-of-type(2n) {
+  background-color: #f3ebeb;
+} 
