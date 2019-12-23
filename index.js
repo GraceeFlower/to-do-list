@@ -1,5 +1,6 @@
 var itemValue = document.getElementsByName("item-value")[0];
 var todoList = document.getElementsByClassName("task-list")[0];
+var checkItem = document.getElementsByName("check-item");
 
 function addStorage() {
   if(itemValue.value) {
@@ -24,6 +25,7 @@ function addItem(key) {
   var value = JSON.parse(localStorage.getItem(key));
   var todoItem = document.createElement("li");
   var checkState = value[1];
+  todoItem.setAttribute("class", (checkState ? "done-item" : ""));
   todoItem.innerHTML = `
     <input type="checkbox" name="check-item" ${checkState} />
     <span>${value[0]}</span>
@@ -31,12 +33,27 @@ function addItem(key) {
   todoList.appendChild(todoItem);
 }
 
-var checkItem = document.getElementsByName("check-item");
+function getNodeIndex(list){
+  var index = 0;
+  while (list = list.previousSibling) {
+    index++;
+  }
+  return index;
+}
+
+function changeState(list) {
+  var key = getNodeIndex(list);
+  var state = list.className ? "checked" : "";
+  var localValue = [list.innerText, state];
+  localStorage.setItem(key, JSON.stringify(localValue));
+}
+
 todoList.addEventListener("click", function (event) {
   var target = event.target;
   if(target.name === "check-item") {
     var list = event.target.parentNode;
-    list.setAttribute("class", (list.className === "done-item" ? "" : "done-item"));
+    list.setAttribute("class", (list.className ? "" : "done-item"));
+    changeState(list);
   }
 })
 
