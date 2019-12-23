@@ -30,6 +30,15 @@ function addItem(value) {
 }
 
 var checkItem = document.getElementsByName("check-item");
+todoList.addEventListener("click", function (event) {
+  var list = event.target.parentNode;
+  if(list.className === "done-item") {
+    list.setAttribute("class", "");
+  } else {
+    list.setAttribute("class", "done-item");
+  }
+})
+
 var checked = [];
 var unChecked = [];
 function judgeCheckState() {
@@ -39,10 +48,20 @@ function judgeCheckState() {
                     : unChecked.push(item.parentNode));
 }
 
+
+
 function showActive() {
   judgeCheckState();
   todoList.innerHTML = "";
   unChecked.forEach((item) => todoList.appendChild(item));
+}
+
+function showDone() {
+  judgeCheckState();
+  todoList.innerHTML = "";
+  checked.forEach((item) => {
+    todoList,appendChild(item);
+  })
 }
 
 loadItem();

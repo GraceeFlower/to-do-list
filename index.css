@@ -55,6 +55,11 @@ li:nth-of-type(2n) {
   background-color: #f3ebeb;
 }
 
+.task-list > .done-item {
+  text-decoration: line-through;
+  color: #999999;
+}
+
 .sort-list {
   margin-top: 30px;
   text-align: center;
