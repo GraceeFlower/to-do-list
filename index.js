@@ -1,7 +1,7 @@
-var list = document.getElementById("todo-list");
 var itemValue = document.getElementsByName("item-value")[0];
 var todoList = document.getElementsByClassName("task-list")[0];
 var localCount = 0;
+
 function addStorage() {
   var localKey = localCount++;
   var localValue = itemValue.value;
