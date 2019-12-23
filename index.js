@@ -1,41 +1,42 @@
 var itemValue = document.getElementsByName("item-value")[0];
 var todoList = document.getElementsByClassName("task-list")[0];
-var localCount = 0;
 
 function addStorage() {
   if(itemValue.value) {
-    var localKey = localCount++;
-    var localValue = itemValue.value;
-    localStorage.setItem(localKey, localValue);
-    addItem(localValue);
+    var localKey = localStorage.length;
+    var localValue = [itemValue.value, ""];
+    localStorage.setItem(localKey, JSON.stringify(localValue));
+    addItem(localKey);
     itemValue.value = "";
     itemValue.focus();
   }
 }
 
 function loadItem() {
-  for(var item = 0; item < localStorage.length; item++) {
-    var values = localStorage.getItem(item);
-    addItem(values);
-  }
+  if(localStorage.length) {
+    for(var item = 0; item < localStorage.length; item++) {
+      addItem(item);
+    }
+  } 
 }
 
-function addItem(value) {
+function addItem(key) {
+  var value = JSON.parse(localStorage.getItem(key));
   var todoItem = document.createElement("li");
+  var checkState = value[1];
   todoItem.innerHTML = `
-    <input type="checkbox" name="check-item" />
-    <span>${value}</span>
+    <input type="checkbox" name="check-item" ${checkState} />
+    <span>${value[0]}</span>
   `
   todoList.appendChild(todoItem);
 }
 
 var checkItem = document.getElementsByName("check-item");
 todoList.addEventListener("click", function (event) {
-  var list = event.target.parentNode;
-  if(list.className === "done-item") {
-    list.setAttribute("class", "");
-  } else {
-    list.setAttribute("class", "done-item");
+  var target = event.target;
+  if(target.name === "check-item") {
+    var list = event.target.parentNode;
+    list.setAttribute("class", (list.className === "done-item" ? "" : "done-item"));
   }
 })
 
@@ -48,20 +49,18 @@ function judgeCheckState() {
                     : unChecked.push(item.parentNode));
 }
 
-
-
 function showActive() {
   judgeCheckState();
   todoList.innerHTML = "";
   unChecked.forEach((item) => todoList.appendChild(item));
+
+
 }
 
 function showDone() {
   judgeCheckState();
   todoList.innerHTML = "";
-  checked.forEach((item) => {
-    todoList,appendChild(item);
-  })
+  checked.forEach((item) => todoList.appendChild(item));
 }
 
 loadItem();
