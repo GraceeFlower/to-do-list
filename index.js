@@ -1,6 +1,7 @@
 var itemValue = document.getElementsByName("item-value")[0];
 var todoList = document.getElementsByClassName("task-list")[0];
 var checkItem = document.getElementsByName("check-item");
+var sortList = document.getElementsByClassName("sort-list")[0];
 
 function addStorage() {
   if(itemValue.value) {
@@ -57,28 +58,38 @@ todoList.addEventListener("click", function (event) {
   }
 })
 
-var checked = [];
-var unChecked = [];
-function judgeCheckState() {
-  checked = [];
-  unChecked = [];
-  return checkItem.forEach((item) => item.checked ? checked.push(item.parentNode) 
-                    : unChecked.push(item.parentNode));
-}
+sortList.addEventListener("click", function (event) {
+  var target = event.target;
+  switch(target.name) {
+    case ("choose-todo"):
+      reloadItem(false);
+      break;
+    case ("choose-done"):
+      reloadItem(true);
+      break;
+    default:
+      break;
+  }
+})
 
-function showActive() {
-  judgeCheckState();
+function reloadItem(state) {
   todoList.innerHTML = "";
-  unChecked.forEach((item) => todoList.appendChild(item));
-
-
+  for(var item = 0; item < localStorage.length; item++) {
+    var values = JSON.parse(localStorage.getItem(item));
+    if(Boolean(values[1]) == state) {
+      addItem(item);
+    }
+  }
 }
 
-function showDone() {
-  judgeCheckState();
-  todoList.innerHTML = "";
-  checked.forEach((item) => todoList.appendChild(item));
-}
+// function showDone() {
+//   todoList.innerHTML = "";
+//   for(var item = 0; item < localStorage.length; item++) {
+//     var values = JSON.parse(localStorage.getItem(item));
+//     if(values[1]) {
+//       addItem(item);
+//     }
+//   }
+// }
 
 loadItem();
-
