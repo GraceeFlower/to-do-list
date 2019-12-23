@@ -15,6 +15,7 @@ function addStorage() {
 }
 
 function loadItem() {
+  todoList.innerHTML = "";
   if(localStorage.length) {
     for(var item = 0; item < localStorage.length; item++) {
       addItem(item);
@@ -67,6 +68,8 @@ sortList.addEventListener("click", function (event) {
     case ("choose-done"):
       reloadItem(true);
       break;
+    case ("choose-all"):
+      loadItem();
     default:
       break;
   }
