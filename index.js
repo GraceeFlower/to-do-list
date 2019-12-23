@@ -3,12 +3,14 @@ var todoList = document.getElementsByClassName("task-list")[0];
 var localCount = 0;
 
 function addStorage() {
-  var localKey = localCount++;
-  var localValue = itemValue.value;
-  localStorage.setItem(localKey, localValue);
-  addItem(localValue);
-  itemValue.value = "";
-  itemValue.focus();
+  if(itemValue.value) {
+    var localKey = localCount++;
+    var localValue = itemValue.value;
+    localStorage.setItem(localKey, localValue);
+    addItem(localValue);
+    itemValue.value = "";
+    itemValue.focus();
+  }
 }
 
 function loadItem() {
