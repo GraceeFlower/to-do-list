@@ -44,7 +44,8 @@ function addStorage() {
   if (itemValue.value) {
     var localKey = itemValue.value;
     if (localStorage.getItem(localKey)) {
-      alert("You have created this item!");
+      alert("您已创建该任务！");
+      itemValue.focus();
     } else {
       var localValue = [localStorage.length, localKey, "", true];
       localStorage.setItem(localKey, JSON.stringify(localValue));
@@ -81,7 +82,7 @@ function changeStyle(target) {
 }
 
 function deleteItem(target) {
-  if (confirm("Are you sure to delete this item?")) {
+  if (confirm("是否删除该 TODO?")) {
     var list = target.parentNode;
     var key = list.innerText;
     var value = JSON.parse(localStorage.getItem(key));
