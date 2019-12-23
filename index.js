@@ -8,19 +8,7 @@ function loadItem(status) {
     var localArr = [];
     var doneArr = [];
     var todoArr = [];
-    for(var item in localStorage) {
-      if(localStorage.hasOwnProperty(item)) {
-        var index = JSON.parse(localStorage[item])[0];
-        if(JSON.parse(localStorage[item])[3]) {
-          localArr[index] = JSON.parse(localStorage[item])[1];
-          if(JSON.parse(localStorage[item])[2]) {
-            doneArr[index] = JSON.parse(localStorage[item])[1];
-          } else {
-            todoArr[index] = JSON.parse(localStorage[item])[1];
-          }
-        }
-      }
-    }
+    filterItem(localArr, todoArr, doneArr);
     switch(status) {
       case "todo":
         todoArr.forEach((key) => addItem(key));
@@ -33,6 +21,23 @@ function loadItem(status) {
         break;
     }
   } 
+}
+
+function filterItem(localArr, todoArr, doneArr) {
+  for(var item in localStorage) {
+    if(localStorage.hasOwnProperty(item)) {
+      var values = JSON.parse(localStorage[item]);
+      var index = values[0];
+      if(values[3]) {
+        localArr[index] = values[1];
+        if(values[2]) {
+          doneArr[index] = values[1];
+        } else {
+          todoArr[index] = values[1];
+        }
+      }
+    }
+  }
 }
 
 function addStorage() {
