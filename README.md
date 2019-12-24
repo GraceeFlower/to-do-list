@@ -7,6 +7,7 @@ You can do something like these:
 - separate the selected & non-selected items
 ...
 
-By the way,the new list item is saved in your localStorage~
-Here comes the [GitHub Pages](https://graceeflower.github.io/to-do-list/)~
-
+By the way,the new list item is saved in your localStorage~  
+Here comes the [GitHub Pages](https://graceeflower.github.io/to-do-list/)~  
+And you can find a gif about my todo-list in my files :)  
+(Christmas egg in it🥚~)
