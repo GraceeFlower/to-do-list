@@ -1,6 +1,7 @@
 var itemValue = document.getElementsByName("item-value")[0];
 var taskList = document.getElementsByClassName("task-list")[0];
 var todoList = document.getElementsByClassName("todo-list")[0];
+var pageStatus = 'all';
 
 function loadItem(status) {
   taskList.innerHTML = "";
@@ -49,22 +50,24 @@ function addStorage() {
     } else {
       var localValue = [localStorage.length, localKey, "", true];
       localStorage.setItem(localKey, JSON.stringify(localValue));
-      addItem(localKey);
+      if (pageStatus !== "done") {
+        addItem(localKey);
+      }
       itemValue.value = "";
     }
   }
 }
 
 function addItem(key) {
-  var value = JSON.parse(localStorage.getItem(key));
-  var todoItem = document.createElement("li");
-  var checkState = value[2];
-  todoItem.setAttribute("class", (checkState ? "done-item" : ""));
-  todoItem.innerHTML = `
-    <input type="checkbox" name="check-item" ${checkState} /><span>${value[1]}</span>
-    <input type ="button" class="delete-btn" name="delete-item" value="✕"/>
-  `
-  taskList.appendChild(todoItem);
+    var value = JSON.parse(localStorage.getItem(key));
+    var todoItem = document.createElement("li");
+    var checkState = value[2];
+    todoItem.setAttribute("class", (checkState ? "done-item" : ""));
+    todoItem.innerHTML = `
+      <input type="checkbox" name="check-item" ${checkState} /><span>${value[1]}</span>
+      <input type ="button" class="delete-btn" name="delete-item" value="✕"/>
+    `
+    taskList.appendChild(todoItem);
 }
 
 function changeState(list) {
@@ -92,7 +95,7 @@ function deleteItem(target) {
     var localValue = [index, key, state, false];
     localStorage.removeItem(key);
     localStorage.setItem(randomKey, JSON.stringify(localValue));
-    loadItem();
+    loadItem(pageStatus);
   }
 }
 
@@ -106,13 +109,16 @@ todoList.addEventListener("click", function (event) {
       deleteItem(target);
       break;
     case ("choose-todo"):
-      loadItem("todo");
+      pageStatus = "todo";
+      loadItem(pageStatus);
       break;
     case ("choose-done"):
-      loadItem("done");
+      pageStatus = "done";
+      loadItem(pageStatus);
       break;
     case ("choose-all"):
-      loadItem("all");
+      pageStatus = "all"
+      loadItem(pageStatus);
       break;
     default:
       break;
