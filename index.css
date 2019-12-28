@@ -7,7 +7,7 @@ body {
 .todo-list {
   margin: 100px auto;
   width: 440px;
-  padding: 5px 20px;
+  padding: 10px 20px;
   border-radius: 7px;
   background-color: #fefefe;
 }
@@ -40,6 +40,10 @@ body {
   background-color: #f0979b;
 }
 
+.add-item:hover {
+  background-color: #f0979bd0;
+}
+
 .todo-list > ol {
   padding: 0 20px;
   font-size: 14px;
@@ -47,9 +51,10 @@ body {
 
 .todo-list > ol > li {
   position: relative;
-  height: 30px;
   line-height: 30px;
   cursor: pointer;
+  word-break: break-all;
+  padding-right: 35px;
 }
 
 li:nth-of-type(2n) {
@@ -68,8 +73,8 @@ li:hover > .delete-btn {
 li > .delete-btn {
   display: none;
   position: absolute;
-  right: 10px;
-  top: 6px;
+  right: 7px;
+  top: 7px;
   border: none;
   color: #999999;
   background-color: transparent;
@@ -92,7 +97,7 @@ li > .delete-btn {
   border: 1px solid #fefefe;
   color: #f0979b;
   font-size: 14px;
-  outline: none;
+  outline-color: #f0979b;
 }
 
 .sort-btn:hover {
